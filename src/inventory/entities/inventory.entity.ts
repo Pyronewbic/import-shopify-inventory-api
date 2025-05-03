@@ -1,27 +1,26 @@
-// src/inventory/entities/inventory.entity.ts
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Variant } from './variant.entity';
 
 @Entity()
 export class Inventory {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: false })
   shopifyProductId: string;
 
   @Column()
   title: string;
 
-  @Column()
-  variantTitle: string;
+  @Column({ type: 'text', nullable: true })
+  svgImage: string; // Store SVG as string
 
-  @Column()
-  sku: string;
+  @Column({ nullable: true })
+  imagePath: string; // Path to saved PNG
 
-  @Column()
-  quantityAvailable: number;
-
-  // Change this to a string type
-  @Column()
-  imagePath: string;  // This will store the URL or file path as a string
+  @OneToMany(() => Variant, (variant) => variant.inventory, {
+    cascade: true,
+    eager: true,
+  })
+  variants: Variant[];
 }

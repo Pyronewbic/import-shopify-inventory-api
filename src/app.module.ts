@@ -6,6 +6,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { ShopifyCronService } from './inventory/inventory.scheduler';
 import { ShopifyModule } from './shopify/shopify.module';
 import { ConfigModule } from '@nestjs/config';
+import { Variant } from './inventory/entities/variant.entity'; 
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { ConfigModule } from '@nestjs/config';
       username: process.env.POSTGRES_USER || 'testuser',
       password: process.env.POSTGRES_PASSWORD || 'testpassword',
       database: process.env.POSTGRES_DB || 'testdb',
-      entities: [Inventory],
+      entities: [Inventory, Variant],
       synchronize: true,
       retryAttempts: 5, // Increase retry attempts for DB connection
       retryDelay: 3000, // Increase delay between retries

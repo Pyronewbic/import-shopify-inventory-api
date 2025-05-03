@@ -10,7 +10,7 @@ export class ShopifyCronService {
     private readonly inventoryService: InventoryService,
   ) {}
 
-  @Cron('0 * * * *')
+  @Cron('* * * * *')
   async runCronJob() {
     await this.importShopifyInventory();
   }
